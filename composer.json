@@ -1,0 +1,23 @@
+{
+    "name": "yunwuxin/think-log-view",
+    "type": "think-extend",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "yunwuxin",
+            "email": "448901948@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "topthink/think-installer": ">=1.0.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "yunwuxin\\logView\\": "src"
+        },
+        "files": [
+            "src/common.php"
+        ]
+    }
+}
