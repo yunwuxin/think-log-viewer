@@ -12,6 +12,7 @@ namespace yunwuxin\logViewer;
 
 use Exception;
 use Jenssegers\Date\Date;
+use think\Config;
 use think\View;
 use yunwuxin\logViewer\exception\LogNotFoundException;
 
@@ -21,6 +22,8 @@ class Controller
 
     public function __construct()
     {
+        //关闭日志
+        Config::set('log.type', 'test');
         $this->logViewer = new LogViewer();
     }
 

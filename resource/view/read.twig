@@ -59,7 +59,7 @@
                             <tbody>
                             {% for log in entry.logs %}
                                 <tr>
-                                    <td><span class="ui label {{ colors[log.type] }}">{{ log.type }}</span></td>
+                                    <td><span class="ui label {{ colors[log.type]??'' }}">{{ log.type }}</span></td>
                                     <td>
                                         <pre style="white-space: pre-wrap!important;word-wrap: break-word!important; ">{{ trim(log.log) }}</pre>
                                     </td>

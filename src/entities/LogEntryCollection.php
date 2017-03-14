@@ -37,8 +37,9 @@ class LogEntryCollection extends Collection
         foreach ($this->items as $entry) {
             foreach ($entry->groupByType() as $type => $logs) {
                 $count = count($logs);
-
-                $counters[$type] += $count;
+                if (isset($counters[$type])) {
+                    $counters[$type] += $count;
+                }
                 $counters['all'] += $count;
             }
         }
@@ -62,7 +63,7 @@ class LogEntryCollection extends Collection
     private function initStats()
     {
         $types = array_merge_recursive(
-            ['all'],
+            ['all', 'error'],
             LogTypes::all()
         );
         return array_map(function () {

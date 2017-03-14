@@ -25,6 +25,7 @@
                 <tr class="">
                     <th class="">File</th>
                     <th class="">All</th>
+                    <th class="">Error</th>
                     <th class="">Log</th>
                     <th class="">Sql</th>
                     <th class="">Info</th>
@@ -41,6 +42,7 @@
                             <a href="{{ url('log-viewer-detail',{month:month,file:file}) }}">{{ file }}</a>
                         </td>
                         <td class="">{{ stat.all }}</td>
+                        <td class="">{{ stat.error }}</td>
                         <td class="">{{ stat.log }}</td>
                         <td class="">{{ stat.sql }}</td>
                         <td class="">{{ stat.info }}</td>
@@ -50,7 +52,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="8" class="center aligned">没有日志</td>
+                        <td colspan="9" class="center aligned">没有日志</td>
                     </tr>
                 {% endfor %}
 
