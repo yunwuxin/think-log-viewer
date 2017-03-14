@@ -8,12 +8,21 @@
 // +----------------------------------------------------------------------
 // | Author: yunwuxin <448901948@qq.com>
 // +----------------------------------------------------------------------
-use think\Route;
+namespace yunwuxin\logViewer;
 
-Route::group('log-viewer', function () {
+use ReflectionClass;
+use think\Log;
 
-    //Route::get(':month/:file', 'Controller@read');
-    Route::get(['log-viewer-detail', ':month/:file'], 'Controller@read');
-    Route::get(['log-viewer', '/'], 'Controller@index');
+class LogTypes
+{
+    protected static $types;
 
-}, ['prefix' => '\\yunwuxin\\logViewer\\']);
+    static public function all()
+    {
+        if (empty(self::$types)) {
+            self::$types = array_values((new ReflectionClass(Log::class))
+                ->getConstants());
+        }
+        return self::$types;
+    }
+}

@@ -8,12 +8,24 @@
 // +----------------------------------------------------------------------
 // | Author: yunwuxin <448901948@qq.com>
 // +----------------------------------------------------------------------
-use think\Route;
+namespace yunwuxin\logViewer;
 
-Route::group('log-viewer', function () {
+use yunwuxin\logViewer\entities\LogCollection;
 
-    //Route::get(':month/:file', 'Controller@read');
-    Route::get(['log-viewer-detail', ':month/:file'], 'Controller@read');
-    Route::get(['log-viewer', '/'], 'Controller@index');
+class LogViewer
+{
+    public function logs($month)
+    {
+        return LogCollection::load($month);
+    }
 
-}, ['prefix' => '\\yunwuxin\\logViewer\\']);
+    public function stats($month)
+    {
+        return $this->logs($month)->stats();
+    }
+
+    public function get($month, $file)
+    {
+        return $this->logs($month)->get($file);
+    }
+}

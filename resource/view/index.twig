@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>日志</title>
+    <link href="//cdn.bootcss.com/semantic-ui/2.2.9/semantic.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/semantic-ui/2.2.9/semantic.min.js"></script>
+</head>
+<body>
+
+<div class="ui teal inverted attached menu">
+    <div class="header item">LogViewer</div>
+    <a class="active item" href="{{ url('log-viewer') }}">
+        <i aria-hidden="true" class="unordered list icon"></i>
+        日志
+    </a>
+</div>
+<div class="ui padded grid">
+    <div class="column">
+        <div class="ui container">
+            <h1 class="ui dividing header">日志 [ {{ this.format('Ym') }} ]</h1>
+            <table class="ui striped table">
+                <thead class="">
+                <tr class="">
+                    <th class="">File</th>
+                    <th class="">All</th>
+                    <th class="">Log</th>
+                    <th class="">Sql</th>
+                    <th class="">Info</th>
+                    <th class="">Notice</th>
+                    <th class="">Alert</th>
+                    <th class="">Debug</th>
+                </tr>
+                </thead>
+                <tbody class="">
+                {% set month = this.format('Ym') %}
+                {% for file,stat in stats %}
+                    <tr class="">
+                        <td class="">
+                            <a href="{{ url('log-viewer-detail',{month:month,file:file}) }}">{{ file }}</a>
+                        </td>
+                        <td class="">{{ stat.all }}</td>
+                        <td class="">{{ stat.log }}</td>
+                        <td class="">{{ stat.sql }}</td>
+                        <td class="">{{ stat.info }}</td>
+                        <td class="">{{ stat.notice }}</td>
+                        <td class="">{{ stat.alert }}</td>
+                        <td class="">{{ stat.debug }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="center aligned">没有日志</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+                <tfoot class="">
+                <tr class="">
+                    <th colspan="4" class="">
+                        {% set prev = this.copy().add('-1 month') %}
+                        <a class="ui button" href="{{ url("@log-viewer",{'month':prev.format('Ym')}) }}">
+                            <i class="icon chevron left"></i>
+                            {{ prev.format('Y年m月') }}
+                        </a>
+                    </th>
+                    <th colspan="4" class="right aligned">
+                        {% set next = this.copy().add('+1 month') %}
+                        <a class="ui button {{ this.isSameMonth(now,true)?'disabled' }}"
+                           href="{{ url("log-viewer",{'month':next.format('Ym')}) }}">
+                            {{ next.format('Y年m月') }}
+                            <i class="icon chevron right"></i>
+                        </a>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

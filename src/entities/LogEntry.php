@@ -8,12 +8,32 @@
 // +----------------------------------------------------------------------
 // | Author: yunwuxin <448901948@qq.com>
 // +----------------------------------------------------------------------
-use think\Route;
 
-Route::group('log-viewer', function () {
+namespace yunwuxin\logViewer\entities;
 
-    //Route::get(':month/:file', 'Controller@read');
-    Route::get(['log-viewer-detail', ':month/:file'], 'Controller@read');
-    Route::get(['log-viewer', '/'], 'Controller@index');
+use think\Collection;
 
-}, ['prefix' => '\\yunwuxin\\logViewer\\']);
+class LogEntry
+{
+    public $heading;
+    public $logs;
+
+    public function __construct($heading, $logs)
+    {
+        $this->heading = $heading;
+        $this->logs    = $logs;
+    }
+
+    public function groupByType()
+    {
+        $results = [];
+        foreach ($this->logs as $log) {
+            if (!array_key_exists($log['type'], $results)) {
+                $results[$log['type']] = new Collection();
+            }
+
+            $results[$log['type']]->offsetSet(null, $log['log']);
+        }
+        return $results;
+    }
+}

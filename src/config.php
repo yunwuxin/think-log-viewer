@@ -8,12 +8,6 @@
 // +----------------------------------------------------------------------
 // | Author: yunwuxin <448901948@qq.com>
 // +----------------------------------------------------------------------
-use think\Route;
+return [
 
-Route::group('log-viewer', function () {
-
-    //Route::get(':month/:file', 'Controller@read');
-    Route::get(['log-viewer-detail', ':month/:file'], 'Controller@read');
-    Route::get(['log-viewer', '/'], 'Controller@index');
-
-}, ['prefix' => '\\yunwuxin\\logViewer\\']);
+];

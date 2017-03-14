@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>日志</title>
+    <link href="//cdn.bootcss.com/semantic-ui/2.2.9/semantic.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/semantic-ui/2.2.9/semantic.min.js"></script>
+</head>
+<body>
+
+<div class="ui teal inverted attached menu">
+    <div class="header item">LogViewer</div>
+    <a class="active item" href="{{ url('log-viewer') }}">
+        <i aria-hidden="true" class="unordered list icon"></i>
+        日志
+    </a>
+</div>
+<div class="ui padded grid">
+    <div class="column">
+        <div class="ui container">
+            <h1 class="ui dividing header">日志 [ {{ log.month }}/{{ log.date }} ]</h1>
+            <div class="ui segment top attached">
+                <h3>基本信息</h3>
+            </div>
+            <div class="ui segment bottom attached">
+                <table class="ui very basic table">
+
+                    <tbody>
+                    <tr>
+                        <td>文件路径：</td>
+                        <td colspan="7">{{ log.path }}</td>
+                    </tr>
+                    <tr>
+                        <td>日志条数：</td>
+                        <td><span class="ui blue label ">{{ count(log.entries) }}</span></td>
+                        <td>文件大小：</td>
+                        <td><span class="ui blue label ">{{ log.size }}</span></td>
+                        <td>创建时间：</td>
+                        <td><span class="ui blue label ">{{ log.createdAt }}</span></td>
+                        <td>最后更新：</td>
+                        <td><span class="ui blue label ">{{ log.updatedAt }}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            {% set colors={info:'blue',log:'green',sql:'teal',notice:'yellow',alert:'orange',debug:'purple',error:'red'} %}
+            <div class="ui styled fluid accordion">
+                {% for entry in entries %}
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        {{ entry.heading }}
+                    </div>
+                    <div class="content">
+
+                        <table class="ui very compact very basic table">
+
+                            <tbody>
+                            {% for log in entry.logs %}
+                                <tr>
+                                    <td><span class="ui label {{ colors[log.type] }}">{{ log.type }}</span></td>
+                                    <td>
+                                        <pre style="white-space: pre-wrap!important;word-wrap: break-word!important; ">{{ trim(log.log) }}</pre>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+
+            </div>
+            {{ entries.render()|raw }}
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('.ui.accordion').accordion({
+            exclusive: false
+        })
+    });
+</script>
+</body>
+</html>

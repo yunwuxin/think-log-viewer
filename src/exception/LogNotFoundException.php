@@ -8,12 +8,11 @@
 // +----------------------------------------------------------------------
 // | Author: yunwuxin <448901948@qq.com>
 // +----------------------------------------------------------------------
-use think\Route;
+namespace yunwuxin\logViewer\exception;
 
-Route::group('log-viewer', function () {
+use Exception;
 
-    //Route::get(':month/:file', 'Controller@read');
-    Route::get(['log-viewer-detail', ':month/:file'], 'Controller@read');
-    Route::get(['log-viewer', '/'], 'Controller@index');
+class LogNotFoundException extends Exception
+{
 
-}, ['prefix' => '\\yunwuxin\\logViewer\\']);
+}

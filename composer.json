@@ -1,5 +1,5 @@
 {
-    "name": "yunwuxin/think-log-view",
+    "name": "yunwuxin/think-log-viewer",
     "type": "think-extend",
     "license": "Apache-2.0",
     "authors": [
@@ -10,11 +10,13 @@
     ],
     "require": {
         "php": ">=5.5",
-        "topthink/think-installer": ">=1.0.11"
+        "topthink/think-installer": ">=1.0.11",
+        "yunwuxin/think-twig": "*",
+        "jenssegers/date": "^3.2"
     },
     "autoload": {
         "psr-4": {
-            "yunwuxin\\logView\\": "src"
+            "yunwuxin\\logViewer\\": "src"
         },
         "files": [
             "src/common.php"
