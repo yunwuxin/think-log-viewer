@@ -66,7 +66,7 @@
                             {{ prev.format('Y年m月') }}
                         </a>
                     </th>
-                    <th colspan="4" class="right aligned">
+                    <th colspan="5" class="right aligned">
                         {% set next = this.copy().add('+1 month') %}
                         <a class="ui button {{ this.isSameMonth(now,true)?'disabled' }}"
                            href="{{ url("log-viewer",{'month':next.format('Ym')}) }}">
